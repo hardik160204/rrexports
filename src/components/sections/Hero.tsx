@@ -27,7 +27,6 @@ const SplitBranding = ({ mode }: { mode: "dark" | "light" }) => (
       R.R. Exports
     </h1>
 
-{/* FIXED: Splitting the text into two strict 50% width columns forces the gap to align perfectly with the door split, protecting the 'Y' */}
     <div className={`mt-2 sm:mt-4 w-full flex text-[7px] sm:text-[11px] font-bold tracking-[0.3em] sm:tracking-[0.5em] uppercase ${
       mode === "dark" ? "text-neutral-400" : "text-neutral-500"
     }`}>
@@ -58,12 +57,12 @@ export default function Hero() {
   const indicatorOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
 
   return (
-    <div ref={containerRef} className="relative w-full h-[150vh] mt-20 bg-white border-b border-black">
+    <div ref={containerRef} className="relative w-full h-[120vh] md:h-[150vh] mt-20 bg-white border-b border-black">
       
       <div className="sticky top-20 w-full h-[calc(100dvh-80px)] flex flex-col overflow-hidden bg-white">
         
-        {/* --- TOP HALF: CAROUSEL & DOORS --- */}
-        <div className="relative w-full aspect-video md:aspect-[21/9] max-h-[55vh] md:max-h-[75vh] flex-shrink-0 overflow-hidden bg-black z-10">
+        {/* Mobile: 60% strict height. Desktop: Auto height with 21/9 aspect ratio */}
+        <div className="relative w-full h-[60%] md:h-auto md:aspect-[21/9] md:max-h-[75vh] flex-shrink-0 overflow-hidden bg-black z-10">
           
           <div className="relative w-full h-full flex items-center justify-center">
             <AnimatePresence mode="wait">
@@ -94,7 +93,6 @@ export default function Hero() {
             </AnimatePresence>
           </div>
 
-          {/* LEFT DOOR */}
           <motion.div 
             style={{ x: leftDoorX }}
             className="absolute left-0 top-0 bottom-0 w-1/2 z-20 overflow-hidden shadow-[20px_0_40px_rgba(0,0,0,0.7)] border-r border-black bg-[#111111]"
@@ -102,7 +100,6 @@ export default function Hero() {
             <div className="absolute top-[40%] left-0 w-[100vw] flex justify-center -translate-y-1/2">
               <SplitBranding mode="dark" />
             </div>
-            {/* FIXED: Moved knob down to top-[75%] to clear the text completely */}
             <div className="absolute right-2 sm:right-10 top-[75%] -translate-y-1/2 z-30">
               <div className="w-8 h-8 sm:w-16 sm:h-16 rounded-full bg-[radial-gradient(circle_at_30%_30%,_#444,_#111_70%,_#000)] shadow-[6px_6px_12px_rgba(0,0,0,0.8),inset_-2px_-2px_4px_rgba(255,255,255,0.15)] border border-[#333] flex items-center justify-center">
                 <div className="w-4 h-4 sm:w-8 sm:h-8 rounded-full bg-[radial-gradient(circle_at_70%_70%,_#333,_#000)] shadow-[inset_2px_2px_4px_rgba(0,0,0,0.9)] border border-[#222]" />
@@ -110,7 +107,6 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* RIGHT DOOR */}
           <motion.div 
             style={{ x: rightDoorX }}
             className="absolute right-0 top-0 bottom-0 w-1/2 z-20 overflow-hidden shadow-[-20px_0_40px_rgba(0,0,0,0.1)] border-l border-white bg-[#f4f4f5]"
@@ -118,7 +114,6 @@ export default function Hero() {
             <div className="absolute top-[40%] right-0 w-[100vw] flex justify-center -translate-y-1/2">
               <SplitBranding mode="light" />
             </div>
-            {/* FIXED: Moved knob down to top-[75%] to clear the text completely */}
             <div className="absolute left-2 sm:left-10 top-[75%] -translate-y-1/2 z-30">
               <div className="w-8 h-8 sm:w-16 sm:h-16 rounded-full bg-[radial-gradient(circle_at_30%_30%,_#555,_#111_70%,_#000)] shadow-[6px_6px_12px_rgba(0,0,0,0.3),inset_-2px_-2px_4px_rgba(255,255,255,0.15)] border border-[#333] flex items-center justify-center">
                 <div className="w-4 h-4 sm:w-8 sm:h-8 rounded-full bg-[radial-gradient(circle_at_70%_70%,_#333,_#000)] shadow-[inset_2px_2px_4px_rgba(0,0,0,0.9)] border border-[#222]" />
@@ -126,7 +121,6 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* SCROLL INDICATOR */}
           <motion.div 
             style={{ opacity: indicatorOpacity }}
             className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 z-50 pointer-events-none opacity-60"
@@ -139,7 +133,7 @@ export default function Hero() {
 
         </div>
 
-{/* --- BOTTOM HALF: TRUST GRID --- */}
+        {/* Mobile: takes remaining 40%. Desktop: Standard padding */}
         <div className="flex-1 flex flex-col justify-center w-full bg-white py-4 md:py-6 px-4 sm:px-6 lg:px-8 border-t-4 border-black">
           <div className="mx-auto max-w-7xl w-full">
             <div className="grid grid-cols-2 gap-x-4 gap-y-4 md:gap-y-0 md:grid-cols-4 md:divide-x md:divide-black items-center">

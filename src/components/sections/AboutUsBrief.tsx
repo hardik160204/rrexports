@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function AboutUsBrief() {
   const products = [
@@ -16,12 +16,13 @@ export default function AboutUsBrief() {
   ];
 
   return (
-    <section className="w-full bg-white py-16 md:py-32">
+    <section className="w-full bg-white pt-10 pb-16 md:py-32">
+      {/* FIXED: Reduced mobile top padding from py-16 to pt-10 to eliminate the white gap during the scroll transition */}
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-24 items-center">
           
-          {/* TEXT CONTENT: Forced to top on mobile (order-1), sits on left on desktop */}
+          {/* TEXT CONTENT */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -66,7 +67,7 @@ export default function AboutUsBrief() {
             </Link>
           </motion.div>
 
-          {/* IMAGE CONTENT: Forced below text on mobile (order-2), sits on right on desktop */}
+          {/* IMAGE CONTENT */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -81,7 +82,6 @@ export default function AboutUsBrief() {
               className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-700" 
             />
             
-            {/* Subtle inner shadow overlay to give the image depth without cheap CSS borders */}
             <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.1)] pointer-events-none" />
           </motion.div>
 
