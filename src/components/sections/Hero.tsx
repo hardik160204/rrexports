@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Globe2, Factory, PackageCheck, ShieldCheck } from "lucide-react";
 
 const heroImages = [
   { desktop: "/hero-1-desktop.jpg", mobile: "/hero-1-mobile.jpg" },
@@ -60,13 +60,13 @@ export default function Hero() {
     <div ref={containerRef} className="relative w-full h-[120vh] md:h-[150vh] mt-20 bg-white">
       
       {/* 
-        The sticky container now only wraps the Hero Image. 
-        It drops the hardcoded height to naturally hug the 4:3 image below.
+        The sticky container is locked to exactly the height of the screen minus the navbar.
+        This holds both the image and the Trust Grid, leaving zero white space.
       */}
-      <div className="sticky top-20 w-full flex flex-col overflow-hidden bg-white border-b border-black">
+      <div className="sticky top-20 w-full h-[calc(100dvh-80px)] flex flex-col overflow-hidden bg-white border-b border-black">
         
-        {/* Mobile: Perfect 4:3 Aspect Ratio (1126x841). Desktop: 21:9 Aspect Ratio */}
-        <div className="relative w-full aspect-[4/3] md:aspect-[21/9] md:max-h-[75vh] flex-shrink-0 overflow-hidden bg-black z-10">
+        {/* Mobile: Perfect 4:3 Aspect Ratio. Desktop: 21:9 Aspect Ratio */}
+        <div className="relative w-full aspect-[4/3] md:aspect-[21/9] md:max-h-[75vh] flex-shrink-0 overflow-hidden bg-black z-10 border-b border-black">
           
           <div className="relative w-full h-full flex items-center justify-center">
             <AnimatePresence mode="wait">
@@ -136,6 +136,43 @@ export default function Hero() {
           </motion.div>
 
         </div>
+
+        {/* 
+          TRUST GRID: Re-integrated inside the sticky container. 
+          flex-1 allows it to dynamically stretch and fill all the remaining space below the 4:3 image.
+        */}
+        <div className="flex-1 flex flex-col justify-center w-full bg-white overflow-hidden">
+          <div className="mx-auto w-full max-w-7xl px-0 sm:px-6 lg:px-8 py-2 md:py-6">
+            <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-4 md:divide-x md:divide-black items-center scrollbar-hide">
+              
+              <div className="flex-shrink-0 w-[55%] sm:w-[45%] md:w-full snap-center flex flex-col items-center gap-2 md:gap-3 text-center px-4 md:px-2 border-r border-gray-200 md:border-none">
+                <Globe2 className="h-6 w-6 sm:h-8 sm:w-8 text-black" strokeWidth={1.5} />
+                <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-black">Global Export</h3>
+                <p className="text-[10px] font-medium text-gray-500 hidden md:block">USA, UK & Europe</p>
+              </div>
+
+              <div className="flex-shrink-0 w-[55%] sm:w-[45%] md:w-full snap-center flex flex-col items-center gap-2 md:gap-3 text-center px-4 md:px-2 border-r border-gray-200 md:border-none">
+                <Factory className="h-6 w-6 sm:h-8 sm:w-8 text-black" strokeWidth={1.5} />
+                <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-black">Direct Factory</h3>
+                <p className="text-[10px] font-medium text-gray-500 hidden md:block">Aligarh Manufacturing</p>
+              </div>
+
+              <div className="flex-shrink-0 w-[55%] sm:w-[45%] md:w-full snap-center flex flex-col items-center gap-2 md:gap-3 text-center px-4 md:px-2 border-r border-gray-200 md:border-none">
+                <PackageCheck className="h-6 w-6 sm:h-8 sm:w-8 text-black" strokeWidth={1.5} />
+                <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-black">Wholesale OEM</h3>
+                <p className="text-[10px] font-medium text-gray-500 hidden md:block">Custom Bulk Orders</p>
+              </div>
+
+              <div className="flex-shrink-0 w-[55%] sm:w-[45%] md:w-full snap-center flex flex-col items-center gap-2 md:gap-3 text-center px-4 md:px-2">
+                <ShieldCheck className="h-6 w-6 sm:h-8 sm:w-8 text-black" strokeWidth={1.5} />
+                <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-black">Export Quality</h3>
+                <p className="text-[10px] font-medium text-gray-500 hidden md:block">Strict QA Standards</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        
       </div>
     </div>
   );
