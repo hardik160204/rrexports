@@ -40,7 +40,7 @@ export default function Navbar() {
   return (
     <>
       {/* ========================================= */}
-      {/* DESKTOP TOP HEADER (Hidden on Mobile) */}
+      {/* DESKTOP TOP HEADER (Untouched - Hidden on Mobile) */}
       {/* ========================================= */}
       <header 
         className={`hidden md:block fixed top-0 inset-x-0 z-50 w-full transition-all duration-300 ${
@@ -109,16 +109,18 @@ export default function Navbar() {
       </header>
 
       {/* ========================================= */}
-      {/* MOBILE MINIMAL TOP BAR (Logo Only) */}
+      {/* MOBILE MINIMAL TOP BAR (Logo Centered) */}
       {/* ========================================= */}
       <div className={`md:hidden fixed top-0 inset-x-0 z-40 h-20 transition-colors duration-300 ${isScrolled ? "bg-white/90 backdrop-blur-md border-b border-gray-100" : "bg-transparent"}`}>
-        <div className="px-4 h-full flex items-center">
+        {/* Added justify-center and w-full to ensure perfect centering */}
+        <div className="px-4 h-full w-full flex items-center justify-center">
           <Link href="/" className="relative h-16 w-48" onClick={closeMenu}>
+            {/* Changed from object-left to object-center */}
             <Image 
               src="/rr-logo.png" 
               alt="R.R. Exports Logo" 
               fill 
-              className="object-contain object-left"
+              className="object-contain object-center"
               priority
             />
           </Link>
