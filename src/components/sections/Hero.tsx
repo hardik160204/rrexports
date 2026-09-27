@@ -3,12 +3,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { ChevronDown, Globe2, Factory, PackageCheck, ShieldCheck } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 const heroImages = [
   { desktop: "/hero-1-desktop.jpg", mobile: "/hero-1-mobile.jpg" },
   { desktop: "/hero-2-desktop.png", mobile: "/hero-2-mobile.png" },
-  { desktop: "/hero-3-desktop.jpg", mobile: "/hero-3-mobile.jpg" },
+  { desktop: "/hero-3-desktop.jpg", mobile: "/trustgridcheck.jpeg" },
 ];
 
 const SplitBranding = ({ mode }: { mode: "dark" | "light" }) => (
@@ -57,12 +57,16 @@ export default function Hero() {
   const indicatorOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
 
   return (
-    <div ref={containerRef} className="relative w-full h-[120vh] md:h-[150vh] mt-20 bg-white border-b border-black">
+    <div ref={containerRef} className="relative w-full h-[120vh] md:h-[150vh] mt-20 bg-white">
       
-      <div className="sticky top-20 w-full h-[calc(100dvh-80px)] flex flex-col overflow-hidden bg-white">
+      {/* 
+        The sticky container now only wraps the Hero Image. 
+        It drops the hardcoded height to naturally hug the 4:3 image below.
+      */}
+      <div className="sticky top-20 w-full flex flex-col overflow-hidden bg-white border-b border-black">
         
-        {/* Mobile: 60% strict height. Desktop: Auto height with 21/9 aspect ratio */}
-        <div className="relative w-full h-[60%] md:h-auto md:aspect-[21/9] md:max-h-[75vh] flex-shrink-0 overflow-hidden bg-black z-10">
+        {/* Mobile: Perfect 4:3 Aspect Ratio (1126x841). Desktop: 21:9 Aspect Ratio */}
+        <div className="relative w-full aspect-[4/3] md:aspect-[21/9] md:max-h-[75vh] flex-shrink-0 overflow-hidden bg-black z-10">
           
           <div className="relative w-full h-full flex items-center justify-center">
             <AnimatePresence mode="wait">
@@ -132,40 +136,6 @@ export default function Hero() {
           </motion.div>
 
         </div>
-
-        {/* Mobile: takes remaining 40%. Desktop: Standard padding */}
-        <div className="flex-1 flex flex-col justify-center w-full bg-white py-4 md:py-6 px-4 sm:px-6 lg:px-8 border-t-4 border-black">
-          <div className="mx-auto max-w-7xl w-full">
-            <div className="grid grid-cols-2 gap-x-4 gap-y-4 md:gap-y-0 md:grid-cols-4 md:divide-x md:divide-black items-center">
-              
-              <div className="flex flex-col items-center justify-center text-center px-2 sm:px-4 py-2 w-full">
-                <Globe2 className="h-5 w-5 sm:h-7 sm:w-7 text-black mb-1.5 md:mb-2" strokeWidth={1.5} />
-                <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-black">Global Export</h3>
-                <p className="text-[10px] font-medium text-gray-500 hidden sm:block mt-0.5">USA, UK & Europe</p>
-              </div>
-
-              <div className="flex flex-col items-center justify-center text-center px-2 sm:px-4 py-2 w-full">
-                <Factory className="h-5 w-5 sm:h-7 sm:w-7 text-black mb-1.5 md:mb-2" strokeWidth={1.5} />
-                <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-black">Direct Factory</h3>
-                <p className="text-[10px] font-medium text-gray-500 hidden sm:block mt-0.5">Aligarh Manufacturing</p>
-              </div>
-
-              <div className="flex flex-col items-center justify-center text-center px-2 sm:px-4 py-2 w-full">
-                <PackageCheck className="h-5 w-5 sm:h-7 sm:w-7 text-black mb-1.5 md:mb-2" strokeWidth={1.5} />
-                <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-black">Wholesale OEM</h3>
-                <p className="text-[10px] font-medium text-gray-500 hidden sm:block mt-0.5">Custom Bulk Orders</p>
-              </div>
-
-              <div className="flex flex-col items-center justify-center text-center px-2 sm:px-4 py-2 w-full">
-                <ShieldCheck className="h-5 w-5 sm:h-7 sm:w-7 text-black mb-1.5 md:mb-2" strokeWidth={1.5} />
-                <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-black">Export Quality</h3>
-                <p className="text-[10px] font-medium text-gray-500 hidden sm:block mt-0.5">Strict QA Standards</p>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   );
