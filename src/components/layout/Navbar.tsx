@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X, MessageCircle, ChevronDown, ArrowRight, Home, Building2, Layers, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -17,6 +18,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showMegaMenu, setShowMegaMenu] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,10 +39,13 @@ export default function Navbar() {
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
 
+  // Helper to determine if a mobile tab is active
+  const isActive = (path: string) => pathname === path;
+
   return (
     <>
       {/* ========================================= */}
-      {/* DESKTOP TOP HEADER (Untouched - Hidden on Mobile) */}
+      {/* DESKTOP TOP HEADER (Untouched) */}
       {/* ========================================= */}
       <header 
         className={`hidden md:block fixed top-0 inset-x-0 z-50 w-full transition-all duration-300 ${
@@ -50,7 +55,6 @@ export default function Navbar() {
         }`}
       >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
-          
           <Link href="/" className="flex items-center z-50">
             <div className="relative h-20 w-64">
               <Image 
@@ -62,7 +66,6 @@ export default function Navbar() {
               />
             </div>
           </Link>
-
           <nav className="flex items-center gap-8 h-full">
             <Link href="/" className="text-[11px] font-bold uppercase tracking-[0.2em] text-black hover:text-gray-500 transition-colors">Home</Link>
             <Link href="/about" className="text-[11px] font-bold uppercase tracking-[0.2em] text-black hover:text-gray-500 transition-colors">About Us</Link>
@@ -97,11 +100,9 @@ export default function Navbar() {
                 )}
               </AnimatePresence>
             </div>
-
             <Link href="/finishes" className="text-[11px] font-bold uppercase tracking-[0.2em] text-black hover:text-gray-500 transition-colors">Finishes</Link>
             <Link href="/#contact" className="text-[11px] font-bold uppercase tracking-[0.2em] text-black hover:text-gray-500 transition-colors">Contact</Link>
           </nav>
-
           <a href="https://wa.me/918851894100" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border border-black bg-white px-6 py-2.5 text-[10px] font-bold uppercase tracking-widest text-black transition-all hover:bg-black hover:text-white active:scale-95 z-50">
             <MessageCircle className="h-4 w-4" /> Inquire
           </a>
@@ -109,13 +110,11 @@ export default function Navbar() {
       </header>
 
       {/* ========================================= */}
-      {/* MOBILE MINIMAL TOP BAR (Logo Centered) */}
+      {/* MOBILE & TABLET MINIMAL TOP BAR (Logo Centered) */}
       {/* ========================================= */}
       <div className={`md:hidden fixed top-0 inset-x-0 z-40 h-20 transition-colors duration-300 ${isScrolled ? "bg-white/90 backdrop-blur-md border-b border-gray-100" : "bg-transparent"}`}>
-        {/* Added justify-center and w-full to ensure perfect centering */}
-        <div className="px-4 h-full w-full flex items-center justify-center">
+        <div className="h-full w-full flex items-center justify-center">
           <Link href="/" className="relative h-16 w-48" onClick={closeMenu}>
-            {/* Changed from object-left to object-center */}
             <Image 
               src="/rr-logo.png" 
               alt="R.R. Exports Logo" 
@@ -128,32 +127,51 @@ export default function Navbar() {
       </div>
 
       {/* ========================================= */}
-      {/* MOBILE APP-LIKE BOTTOM TAB BAR */}
+      {/* MOBILE APP-LIKE BOTTOM TAB BAR (Active States Added) */}
       {/* ========================================= */}
       <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-[400px]">
-        <div className="bg-[#111111] text-neutral-400 rounded-full px-6 py-3 flex items-center justify-between shadow-[0_10px_40px_rgba(0,0,0,0.6)] border border-[#333]">
+        <div className="bg-[#111111] rounded-full px-6 py-3 flex items-center justify-between shadow-[0_10px_40px_rgba(0,0,0,0.6)] border border-[#333]">
           
-          <Link href="/" onClick={closeMenu} className="flex flex-col items-center gap-1 hover:text-white transition-colors">
+          <Link 
+            href="/" 
+            onClick={closeMenu} 
+            className={`flex flex-col items-center gap-1 transition-colors ${isActive('/') ? 'text-white' : 'text-neutral-500 hover:text-neutral-300'}`}
+          >
             <Home className="h-5 w-5" strokeWidth={1.5} />
             <span className="text-[9px] uppercase tracking-wider font-bold">Home</span>
           </Link>
 
-          <Link href="/about" onClick={closeMenu} className="flex flex-col items-center gap-1 hover:text-white transition-colors">
+          <Link 
+            href="/about" 
+            onClick={closeMenu} 
+            className={`flex flex-col items-center gap-1 transition-colors ${isActive('/about') ? 'text-white' : 'text-neutral-500 hover:text-neutral-300'}`}
+          >
             <Building2 className="h-5 w-5" strokeWidth={1.5} />
             <span className="text-[9px] uppercase tracking-wider font-bold">About</span>
           </Link>
 
-          <Link href="/catalog" onClick={closeMenu} className="flex flex-col items-center gap-1 hover:text-white transition-colors">
+          <Link 
+            href="/catalog" 
+            onClick={closeMenu} 
+            className={`flex flex-col items-center gap-1 transition-colors ${isActive('/catalog') ? 'text-white' : 'text-neutral-500 hover:text-neutral-300'}`}
+          >
             <Layers className="h-5 w-5" strokeWidth={1.5} />
             <span className="text-[9px] uppercase tracking-wider font-bold">Products</span>
           </Link>
 
-          <Link href="/#contact" onClick={closeMenu} className="flex flex-col items-center gap-1 hover:text-white transition-colors">
+          <Link 
+            href="/#contact" 
+            onClick={closeMenu} 
+            className={`flex flex-col items-center gap-1 transition-colors ${isActive('/#contact') ? 'text-white' : 'text-neutral-500 hover:text-neutral-300'}`}
+          >
             <Phone className="h-5 w-5" strokeWidth={1.5} />
             <span className="text-[9px] uppercase tracking-wider font-bold">Contact</span>
           </Link>
 
-          <button onClick={toggleMenu} className="flex flex-col items-center gap-1 text-white transition-colors">
+          <button 
+            onClick={toggleMenu} 
+            className={`flex flex-col items-center gap-1 transition-colors ${isOpen ? 'text-white' : 'text-neutral-500 hover:text-neutral-300'}`}
+          >
             <Menu className="h-5 w-5" strokeWidth={1.5} />
             <span className="text-[9px] uppercase tracking-wider font-bold">Menu</span>
           </button>
@@ -167,7 +185,6 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Dark Backdrop */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -176,8 +193,6 @@ export default function Navbar() {
               onClick={closeMenu}
               className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm md:hidden"
             />
-
-            {/* Slide-out Panel */}
             <motion.div 
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -191,14 +206,12 @@ export default function Navbar() {
                   <X className="h-6 w-6" />
                 </button>
               </div>
-
               <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col space-y-6">
-                <Link href="/" onClick={closeMenu} className="text-xl font-bold uppercase tracking-widest text-black border-b border-gray-100 pb-4">Home</Link>
-                <Link href="/about" onClick={closeMenu} className="text-xl font-bold uppercase tracking-widest text-black border-b border-gray-100 pb-4">About Us</Link>
-                <Link href="/finishes" onClick={closeMenu} className="text-xl font-bold uppercase tracking-widest text-black border-b border-gray-100 pb-4">Finishes</Link>
-                <Link href="/catalog" onClick={closeMenu} className="text-xl font-bold uppercase tracking-widest text-black border-b border-gray-100 pb-4">Capabilities</Link>
-                <Link href="/#contact" onClick={closeMenu} className="text-xl font-bold uppercase tracking-widest text-black border-b border-gray-100 pb-4">Contact</Link>
-
+                <Link href="/" onClick={closeMenu} className={`text-xl font-bold uppercase tracking-widest border-b border-gray-100 pb-4 ${isActive('/') ? 'text-black' : 'text-gray-400'}`}>Home</Link>
+                <Link href="/about" onClick={closeMenu} className={`text-xl font-bold uppercase tracking-widest border-b border-gray-100 pb-4 ${isActive('/about') ? 'text-black' : 'text-gray-400'}`}>About Us</Link>
+                <Link href="/finishes" onClick={closeMenu} className={`text-xl font-bold uppercase tracking-widest border-b border-gray-100 pb-4 ${isActive('/finishes') ? 'text-black' : 'text-gray-400'}`}>Finishes</Link>
+                <Link href="/catalog" onClick={closeMenu} className={`text-xl font-bold uppercase tracking-widest border-b border-gray-100 pb-4 ${isActive('/catalog') ? 'text-black' : 'text-gray-400'}`}>Capabilities</Link>
+                <Link href="/#contact" onClick={closeMenu} className={`text-xl font-bold uppercase tracking-widest border-b border-gray-100 pb-4 ${isActive('/#contact') ? 'text-black' : 'text-gray-400'}`}>Contact</Link>
                 <div className="pt-4">
                   <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 mb-6 block">Categories</span>
                   <div className="flex flex-col space-y-5">
@@ -215,7 +228,6 @@ export default function Navbar() {
                   </div>
                 </div>
               </div>
-
               <div className="p-6 bg-white border-t border-gray-100 mt-auto pb-24">
                 <a 
                   href="https://wa.me/918851894100" 
