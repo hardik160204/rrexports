@@ -52,7 +52,6 @@ export default function Hero() {
     offset: ["start 80px", "end start"], 
   });
 
-  // Scroll transforms exclusively for desktop
   const leftDoorX = useTransform(scrollYProgress, [0, 0.3, 1], ["-100%", "0%", "0%"]);
   const rightDoorX = useTransform(scrollYProgress, [0, 0.3, 1], ["100%", "0%", "0%"]);
   const indicatorOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
@@ -60,11 +59,9 @@ export default function Hero() {
   return (
     <>
       {/* ========================================= */}
-      {/* MOBILE VIEW: Auto-Open, No Empty Scroll Track, Strict 4:3 */}
+      {/* MOBILE VIEW */}
       {/* ========================================= */}
       <div className="w-full flex flex-col md:hidden mt-20 bg-white">
-        
-        {/* Strictly 4:3 Image Container */}
         <div className="relative w-full aspect-[4/3] overflow-hidden bg-black border-b border-black">
           <div className="relative w-full h-full flex items-center justify-center">
             <AnimatePresence mode="wait">
@@ -88,7 +85,7 @@ export default function Hero() {
             </AnimatePresence>
           </div>
 
-          {/* Auto-Opening Left Door (Mobile) */}
+          {/* Auto-Opening Left Door */}
           <motion.div 
             initial={{ x: "0%" }}
             animate={{ x: "-100%" }}
@@ -105,7 +102,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Auto-Opening Right Door (Mobile) */}
+          {/* Auto-Opening Right Door */}
           <motion.div 
             initial={{ x: "0%" }}
             animate={{ x: "100%" }}
@@ -123,7 +120,6 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Mobile Horizontal Trust Grid (Stacked immediately underneath, no gaps) */}
         <div className="w-full bg-white py-4 border-b-4 border-black overflow-hidden">
           <div className="mx-auto w-full max-w-7xl px-0 sm:px-6">
             <div className="flex overflow-x-auto snap-x snap-mandatory items-center scrollbar-hide">
@@ -148,14 +144,13 @@ export default function Hero() {
         </div>
       </div>
 
-
       {/* ========================================= */}
-      {/* DESKTOP VIEW: Scroll-To-Open, 150vh Track, Strict 4:3 */}
+      {/* DESKTOP VIEW */}
       {/* ========================================= */}
       <div ref={containerRef} className="relative w-full h-[150vh] hidden md:block mt-20 bg-white">
         <div className="sticky top-20 w-full h-[calc(100vh-80px)] flex flex-col overflow-hidden bg-white border-b border-black">
           
-          <div className="relative w-full aspect-[4/3] flex-shrink-0 overflow-hidden bg-black z-10 border-b border-black mx-auto">
+          <div className="relative w-full aspect-[4/3] md:aspect-[21/9] md:max-h-[75vh] flex-shrink-0 overflow-hidden bg-black z-10 border-b border-black mx-auto">
             <div className="relative w-full h-full flex items-center justify-center">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -217,7 +212,6 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Desktop Static 4-Col Trust Grid */}
           <div className="flex-1 flex flex-col justify-center w-full bg-white overflow-hidden py-6">
             <div className="mx-auto w-full max-w-7xl px-8">
               <div className="grid grid-cols-4 divide-x divide-black items-center">

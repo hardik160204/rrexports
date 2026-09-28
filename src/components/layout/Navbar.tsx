@@ -58,7 +58,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center z-50">
             <div className="relative h-20 w-64">
               <Image 
-                src="/rr-logo.png" 
+                src="/rr-logo1.png" 
                 alt="R.R. Exports Logo" 
                 fill 
                 className="object-contain object-left"
@@ -116,7 +116,7 @@ export default function Navbar() {
         <div className="h-full w-full flex items-center justify-center">
           <Link href="/" className="relative h-16 w-48" onClick={closeMenu}>
             <Image 
-              src="/rr-logo.png" 
+              src="/rr-logo1.png" 
               alt="R.R. Exports Logo" 
               fill 
               className="object-contain object-center"

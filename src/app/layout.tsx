@@ -3,6 +3,10 @@ import "../../src/app/globals.css";
 import Navbar from "../../src/components/layout/Navbar";
 import Footer from "../../src/components/layout/Footer";
 import FloatingWidgets from "../../src/components/layout/FloatingWidgets";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "A.B. Enterprises | Premium Hardware Manufacturer",
@@ -15,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", geist.variable)}>
       <body className="min-h-screen bg-white text-black antialiased selection:bg-black selection:text-white">
         {/* Global Navigation */}
         <Navbar />
