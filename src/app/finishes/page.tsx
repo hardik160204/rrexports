@@ -34,17 +34,36 @@ export default function FinishesPage() {
 
   const carouselItems = allFinishes.map((finish) => ({
     label: finish.name,
+    // Make sure your images in the public/finishes folder match this path and extension
     image: `/finishes/placeholder-${finish.id}.jpg`, 
     imageAlt: `${finish.name} swatch`,
   }));
 
   return (
-    <div className="w-full min-h-screen bg-black text-white selection:bg-white selection:text-black font-sans flex flex-col lg:flex-row pt-20 lg:pt-0 overflow-hidden">
+    <div className="w-full min-h-screen bg-black text-white selection:bg-white selection:text-black font-sans flex flex-col lg:flex-row pt-20 overflow-hidden">
       
-      {/* Dynamic Command Center */}
-      <div className="w-full lg:w-[40%] flex flex-col justify-center px-6 lg:px-16 z-10 order-2 lg:order-1 h-[50vh] lg:h-screen pb-12 lg:pb-0 bg-black">
+      {/* 
+        Wheel Carousel Container 
+        Top on Mobile, Right on Desktop
+      */}
+      <div className="w-full lg:w-[60%] h-[55vh] lg:h-screen relative order-1 lg:order-2 flex items-center justify-center overflow-hidden bg-black z-10 pt-4 lg:pt-0">
+        {/* On mobile, we make the div wider and push it right (translate-x) so the photo isn't clipped */}
+        <div className="w-[125%] lg:w-full h-full scale-[0.85] lg:scale-100 origin-center flex items-center justify-center translate-x-[15%] lg:translate-x-0">
+          <WheelCarousel 
+            items={carouselItems} 
+            onChange={(index: number) => setActiveIndex(index)} 
+            mode="dark" 
+          />
+        </div>
+      </div>
+
+      {/* 
+        Dynamic Command Center 
+        Bottom on Mobile, Left on Desktop
+      */}
+      <div className="w-full lg:w-[40%] flex flex-col justify-center px-6 lg:px-16 z-20 order-2 lg:order-1 flex-1 lg:h-screen pb-24 lg:pb-0 bg-black relative shadow-[0_-20px_40px_rgba(0,0,0,0.6)] lg:shadow-none">
         
-        <div className="mb-12 hidden lg:block">
+        <div className="mb-8 lg:mb-12 hidden lg:block">
           <h1 className="text-5xl xl:text-6xl font-bold tracking-tighter uppercase mb-4">
             Finishes
           </h1>
@@ -53,8 +72,8 @@ export default function FinishesPage() {
           </p>
         </div>
 
-        <div className="flex flex-col space-y-6">
-          <span className="text-xs font-mono text-zinc-500 tracking-wider uppercase">
+        <div className="flex flex-col space-y-4 lg:space-y-6 pt-4 lg:pt-0">
+          <span className="text-[10px] lg:text-xs font-mono text-zinc-500 tracking-wider uppercase">
             Selected Specification
           </span>
           
@@ -70,14 +89,14 @@ export default function FinishesPage() {
               <h2 className="text-3xl lg:text-4xl font-semibold tracking-tight mb-4">
                 {activeFinish.name}
               </h2>
-              <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-zinc-400 mb-6">
+              <div className="flex flex-wrap items-center gap-3 text-[10px] lg:text-xs font-mono text-zinc-400 mb-4 lg:mb-6">
                 <span className="px-2 py-1 bg-zinc-900 border border-zinc-800 rounded">
                   {activeFinish.code}
                 </span>
                 <span>Base: {activeFinish.material}</span>
               </div>
               
-              <p className="text-zinc-300 text-sm leading-relaxed border-l-2 border-zinc-700 pl-4 max-w-md">
+              <p className="text-zinc-300 text-xs lg:text-sm leading-relaxed border-l-2 border-zinc-700 pl-4 max-w-md">
                 {activeFinish.desc}
               </p>
             </motion.div>
@@ -85,16 +104,6 @@ export default function FinishesPage() {
         </div>
       </div>
 
-      {/* Wheel Carousel Container */}
-      <div className="w-full lg:w-[60%] h-[50vh] lg:h-screen relative order-1 lg:order-2 flex items-center justify-center overflow-hidden bg-black">
-        <div className="w-full h-full scale-[0.85] lg:scale-100">
-          <WheelCarousel 
-            items={carouselItems} 
-            onChange={(index: number) => setActiveIndex(index)} 
-            mode="dark" // Forces the component to use its built-in dark theme
-          />
-        </div>
-      </div>
     </div>
   );
 }
